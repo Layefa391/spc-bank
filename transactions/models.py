@@ -63,6 +63,7 @@ class Transaction(models.Model):
     )
 
     created_at = models.DateTimeField()
+
     def __str__(self):
         return f"{self.reference} - {self.amount}"
 

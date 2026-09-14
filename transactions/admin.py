@@ -30,7 +30,6 @@ class TransactionAdmin(admin.ModelAdmin):
 
     readonly_fields = [
         "reference",
-        "created_at",
     ]
 
     ordering = [
