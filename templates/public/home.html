@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Southern Premium Capital Bank</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        nav {
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .brand span {
+            color: #2563eb;
+        }
+
+        .brand small {
+            display: block;
+            font-size: 8px;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-top: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .login {
+            color: #2563eb !important;
+        }
+
+        .open-account {
+            background: #0f172a;
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 9px;
+        }
+
+        .hero {
+            min-height: 620px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 7%;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .eyebrow {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(48px, 6vw, 76px);
+            line-height: 1.02;
+            letter-spacing: -3px;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            color: #2563eb;
+        }
+
+        .hero-text {
+            color: #64748b;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 520px;
+            margin-bottom: 34px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            text-decoration: none;
+            padding: 15px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .primary-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #0f172a;
+            border: 1px solid #dbe2ea;
+        }
+
+        .visual {
+            width: 430px;
+            height: 330px;
+            position: relative;
+        }
+
+        .card {
+            position: absolute;
+            width: 390px;
+            height: 235px;
+            right: 10px;
+            top: 40px;
+            border-radius: 24px;
+            padding: 30px;
+            color: white;
+            background: linear-gradient(135deg, #2563eb, #0f172a);
+            box-shadow: 0 30px 70px rgba(15, 23, 42, .25);
+            transform: rotate(-5deg);
+        }
+
+        .card-title {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        .chip {
+            width: 48px;
+            height: 36px;
+            border-radius: 8px;
+            background: #e8d68a;
+            margin: 35px 0 25px;
+        }
+
+        .card-number {
+            font-size: 21px;
+            letter-spacing: 4px;
+            font-family: monospace;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 22px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .features {
+            padding: 80px 7%;
+            background: white;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .features > p {
+            color: #64748b;
+            margin-bottom: 45px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .feature {
+            padding: 32px;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 35px 7%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        footer span {
+            color: #94a3b8;
+        }
+
+        @media (max-width: 800px) {
+            .nav-links a:not(.login):not(.open-account) {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .visual {
+                margin-top: 50px;
+                transform: scale(.8);
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="brand">
+        SPC <span>Bank</span>
+        <small>SOUTHERN PREMIUM CAPITAL BANK</small>
+    </div>
+
+    <div class="nav-links">
+        <a href="#">Personal</a>
+        <a href="#">Business</a>
+        <a href="#">About</a>
+        <a href="{% url 'login' %}" class="login">Sign in</a>
+        <a href="{% url 'register' %}" class="open-account">Open an account</a>
+    </div>
+</nav>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">Premium digital banking</div>
+
+        <h1>
+            Banking built<br>
+            <span>around you.</span>
+        </h1>
+
+        <p class="hero-text">
+            Experience simple, secure and intelligent banking designed
+            to help you manage your money with confidence.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="{% url 'register' %}" class="primary-btn">
+                Open an account →
+            </a>
+
+            <a href="{% url 'login' %}" class="secondary-btn">
+                Sign in
+            </a>
+        </div>
+
+    </div>
+
+    <div class="visual">
+
+        <div class="card">
+
+            <div class="card-title">SPC BANK</div>
+
+            <div class="chip"></div>
+
+            <div class="card-number">
+                7754 0346 21••
+            </div>
+
+            <div class="card-bottom">
+                <span>Premium Customer</span>
+                <span>USD</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <h2>Everything you need to bank better.</h2>
+
+    <p>Modern banking tools built around your everyday financial life.</p>
+
+    <div class="feature-grid">
+
+        <div class="feature">
+            <div class="icon">↗</div>
+            <h3>Fast Transfers</h3>
+            <p>
+                Send money securely and keep track of every transaction
+                from one convenient dashboard.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="icon">▣</div>
+            <h3>Secure Accounts</h3>
+            <p>
+                Your account information and financial activity are
+                protected with modern security controls.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="icon">◷</div>
+            <h3>Always Available</h3>
+            <p>
+                Access your banking dashboard whenever you need it,
+                wherever you are.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <strong>SPC Bank</strong>
+    <span>Southern Premium Capital Bank · Digital Banking Platform</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | SPC Bank</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            background: #07111f;
+            color: white;
+            padding: 28px 18px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            padding: 0 12px;
+            margin-bottom: 45px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+        }
+
+        .brand-subtitle {
+            display: block;
+            margin-top: 4px;
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            color: #9daabd;
+            font-weight: 700;
+        }
+
+        .menu-title {
+            padding: 0 12px;
+            color: #6f7e94;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 12px;
+            border-radius: 10px;
+            color: #aab5c6;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #101d30;
+            color: white;
+        }
+
+        .nav-link.active {
+            background: white;
+            color: #07111f;
+            font-weight: 700;
+        }
+
+        .nav-icon {
+            width: 20px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            color: #9daabd;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+
+        .logout-link:hover {
+            background: #101d30;
+            color: white;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 78px;
+            background: white;
+            border-bottom: 1px solid #e8ebf1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 42px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 750;
+        }
+
+        .page-subtitle {
+            color: #8791a2;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: #8b95a5;
+            margin-top: 2px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #07111f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        /* CONTENT */
+
+        .content {
+            padding: 40px 42px 60px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            font-size: 28px;
+            letter-spacing: -0.8px;
+            margin-bottom: 6px;
+        }
+
+        .welcome p {
+            color: #7d8797;
+            font-size: 13px;
+        }
+
+        /* BALANCE */
+
+        .balance-card {
+            background: #07111f;
+            color: white;
+            border-radius: 18px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .balance-card::before {
+            content: "";
+            position: absolute;
+            width: 330px;
+            height: 330px;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 50%;
+            right: -120px;
+            top: -190px;
+        }
+
+        .balance-card::after {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 50%;
+            right: -60px;
+            bottom: -170px;
+        }
+
+        .balance-label {
+            color: #9caabd;
+            font-size: 11px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .balance {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .account-number {
+            margin-top: 16px;
+            color: #8997aa;
+            font-size: 11px;
+            letter-spacing: 1.3px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* SECTIONS */
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            font-size: 16px;
+            font-weight: 750;
+        }
+
+        .section-heading a {
+            font-size: 11px;
+            color: #718096;
+            font-weight: 650;
+        }
+
+        /* ACTIONS */
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background: white;
+            border: 1px solid #e8ebf1;
+            border-radius: 15px;
+            padding: 21px;
+            transition: 0.2s;
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px);
+            border-color: #cfd5df;
+            box-shadow: 0 8px 25px rgba(18, 30, 48, 0.05);
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #f0f3f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            margin-bottom: 14px;
+        }
+
+        .action-title {
+            font-size: 13px;
+            font-weight: 750;
+            margin-bottom: 4px;
+        }
+
+        .action-description {
+            font-size: 11px;
+            color: #8b95a5;
+        }
+
+        /* LOWER GRID */
+
+        .lower-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #e8ebf1;
+            border-radius: 17px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 20px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 750;
+        }
+
+        .panel-link {
+            font-size: 10px;
+            color: #778395;
+            font-weight: 700;
+        }
+
+        /* TRANSACTIONS */
+
+        .transaction-list {
+            padding: 0 22px;
+        }
+
+        .transaction {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 17px 0;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .transaction:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .transaction-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: #f0f3f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .transaction-name {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .transaction-date {
+            font-size: 10px;
+            color: #929baa;
+        }
+
+        .transaction-amount {
+            font-size: 12px;
+            font-weight: 750;
+            white-space: nowrap;
+        }
+
+        .empty-state {
+            padding: 35px 20px;
+            text-align: center;
+            color: #929baa;
+            font-size: 11px;
+        }
+
+        /* ACCOUNT INFO */
+
+        .info-body {
+            padding: 5px 22px 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf0f4;
+            gap: 20px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #929baa;
+            font-size: 10px;
+        }
+
+        .info-value {
+            font-size: 11px;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #4d7a61;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4d7a61;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .lower-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 72px;
+                padding: 22px 10px;
+            }
+
+            .brand {
+                text-align: center;
+                padding: 0;
+            }
+
+            .brand-name {
+                font-size: 16px;
+            }
+
+            .brand-subtitle,
+            .menu-title,
+            .nav-link span:last-child {
+                display: none;
+            }
+
+            .nav-link {
+                justify-content: center;
+            }
+
+            .main {
+                margin-left: 72px;
+                width: calc(100% - 72px);
+            }
+
+            .topbar {
+                padding: 0 22px;
+            }
+
+            .content {
+                padding: 28px 20px;
+            }
+
+            .user-info {
+                display: none;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .content {
+                padding: 25px 15px;
+            }
+
+            .balance-card {
+                padding: 24px;
+            }
+
+            .balance {
+                font-size: 31px;
+            }
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-name">
+                SPC Bank
+            </div>
+
+            <span class="brand-subtitle">
+                SOUTHERN PREMIUM CAPITAL BANK
+            </span>
+
+        </div>
+
+
+        <div class="menu-title">
+            Main Menu
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <a href="{% url 'dashboard' %}" class="nav-link active">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a href="{% url 'transfer' %}" class="nav-link">
+                <span class="nav-icon">↗</span>
+                <span>Transfer</span>
+            </a>
+
+
+            <a href="{% url 'transactions' %}" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Transactions</span>
+            </a>
+
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">◉</span>
+                <span>My Account</span>
+            </a>
+
+
+            <!-- BENEFICIARIES -->
+
+            <a href="{% url 'beneficiaries' %}" class="nav-link">
+                <span class="nav-icon">☆</span>
+                <span>Beneficiaries</span>
+            </a>
+
+
+            <!-- STATEMENTS WILL BE CONNECTED LATER -->
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Statements</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+
+            <a href="{% url 'logout' %}" class="logout-link">
+                <span class="nav-icon">↪</span>
+                <span>Sign out</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="page-title">
+                    Dashboard
+                </div>
+
+                <div class="page-subtitle">
+                    Your SPC Bank account overview.
+                </div>
+
+            </div>
+
+
+            <div class="user-area">
+
+                <div class="user-info">
+
+                    <div class="user-name">
+
+                        {% if request.user.get_full_name %}
+                            {{ request.user.get_full_name }}
+                        {% else %}
+                            {{ request.user.email }}
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="user-role">
+                        Personal Banking
+                    </div>
+
+                </div>
+
+
+                <div class="avatar">
+
+                    {% if request.user.first_name %}
+                        {{ request.user.first_name|first|upper }}
+                    {% else %}
+                        {{ request.user.email|first|upper }}
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+
+            <!-- WELCOME -->
+
+            <div class="welcome">
+
+                <h1>
+                    Welcome back{% if request.user.first_name %}, {{ request.user.first_name }}{% endif %}.
+                </h1>
+
+                <p>
+                    Here's your financial overview at a glance.
+                </p>
+
+            </div>
+
+
+            {% if account %}
+
+
+                <!-- BALANCE -->
+
+                <div class="balance-card">
+
+                    <div class="balance-label">
+                        Available Balance
+                    </div>
+
+                    <div class="balance">
+                        ${{ account.balance|floatformat:2 }}
+                    </div>
+
+                    <div class="account-number">
+                        ACCOUNT • {{ account.account_number }}
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="section-heading">
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                </div>
+
+
+                <div class="actions">
+
+
+                    <!-- SEND MONEY -->
+
+                    <a href="{% url 'transfer' %}" class="action-card">
+
+                        <div class="action-icon">
+                            ↗
+                        </div>
+
+                        <div class="action-title">
+                            Send Money
+                        </div>
+
+                        <div class="action-description">
+                            Transfer money to another SPC Bank account.
+                        </div>
+
+                    </a>
+
+
+                    <!-- WITHDRAW -->
+
+                    <a href="{% url 'withdraw' %}" class="action-card">
+
+                        <div class="action-icon">
+                            ↓
+                        </div>
+
+                        <div class="action-title">
+                            Withdraw
+                        </div>
+
+                        <div class="action-description">
+                            Withdraw funds from your account.
+                        </div>
+
+                    </a>
+
+
+                    <!-- TRANSACTIONS -->
+
+                    <a href="{% url 'transactions' %}" class="action-card">
+
+                        <div class="action-icon">
+                            ▤
+                        </div>
+
+                        <div class="action-title">
+                            Transactions
+                        </div>
+
+                        <div class="action-description">
+                            View your complete transaction history.
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- LOWER CONTENT -->
+
+                <div class="lower-grid">
+
+
+                    <!-- RECENT TRANSACTIONS -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div class="panel-title">
+                                Recent Transactions
+                            </div>
+
+                            <a
+                                href="{% url 'transactions' %}"
+                                class="panel-link"
+                            >
+                                View all
+                            </a>
+
+                        </div>
+
+
+                        <div class="transaction-list">
+
+                            {% for transaction in account.transactions.all|slice:":4" %}
+
+                                <div class="transaction">
+
+                                    <div class="transaction-left">
+
+                                        <div class="transaction-icon">
+
+                                            {% if transaction.transaction_type == "TRANSFER" %}
+                                                ↗
+                                            {% elif transaction.transaction_type == "WITHDRAWAL" %}
+                                                ↓
+                                            {% else %}
+                                                +
+                                            {% endif %}
+
+                                        </div>
+
+
+                                        <div>
+
+                                            <div class="transaction-name">
+
+                                                {% if transaction.description %}
+                                                    {{ transaction.description|truncatechars:32 }}
+                                                {% else %}
+                                                    {{ transaction.get_transaction_type_display }}
+                                                {% endif %}
+
+                                            </div>
+
+
+                                            <div class="transaction-date">
+                                                {{ transaction.created_at|date:"M d, Y · H:i" }}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="transaction-amount">
+
+                                        {% if transaction.transaction_type == "WITHDRAWAL" %}
+                                            -
+                                        {% elif transaction.transaction_type == "TRANSFER" %}
+                                            -
+                                        {% endif %}
+
+                                        ${{ transaction.amount|floatformat:2 }}
+
+                                    </div>
+
+                                </div>
+
+                            {% empty %}
+
+                                <div class="empty-state">
+                                    No transactions yet.
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACCOUNT INFORMATION -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div class="panel-title">
+                                Account Information
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-body">
+
+
+                            <div class="info-row">
+
+                                <div class="info-label">
+                                    Account number
+                                </div>
+
+                                <div class="info-value">
+                                    {{ account.account_number }}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info-row">
+
+                                <div class="info-label">
+                                    Account type
+                                </div>
+
+                                <div class="info-value">
+                                    {{ account.get_account_type_display }}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info-row">
+
+                                <div class="info-label">
+                                    Currency
+                                </div>
+
+                                <div class="info-value">
+                                    {{ account.currency }}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info-row">
+
+                                <div class="info-label">
+                                    Status
+                                </div>
+
+                                <div class="info-value status">
+
+                                    <span class="status-dot"></span>
+
+                                    {{ account.get_status_display }}
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="info-row">
+
+                                <div class="info-label">
+                                    Opened
+                                </div>
+
+                                <div class="info-value">
+                                    {{ account.created_at|date:"M d, Y" }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="panel">
+
+                    <div class="empty-state">
+
+                        No bank account is associated with this profile.
+
+                    </div>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

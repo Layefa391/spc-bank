@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Send Money | SPC Bank</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            background: #07111f;
+            color: white;
+            padding: 28px 18px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            padding: 0 12px;
+            margin-bottom: 45px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+        }
+
+        .brand-subtitle {
+            display: block;
+            margin-top: 4px;
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            color: #9daabd;
+            font-weight: 700;
+        }
+
+        .menu-title {
+            padding: 0 12px;
+            color: #6f7e94;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 12px;
+            border-radius: 10px;
+            color: #aab5c6;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #101d30;
+            color: white;
+        }
+
+        .nav-link.active {
+            background: white;
+            color: #07111f;
+            font-weight: 700;
+        }
+
+        .nav-icon {
+            width: 20px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            color: #9daabd;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+
+        .logout-link:hover {
+            background: #101d30;
+            color: white;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 78px;
+            background: white;
+            border-bottom: 1px solid #e8ebf1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 42px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 750;
+        }
+
+        .page-subtitle {
+            color: #8791a2;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: #8b95a5;
+            margin-top: 2px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #07111f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        /* CONTENT */
+
+        .content {
+            padding: 40px 42px 60px;
+            max-width: 1000px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #788496;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .back-link:hover {
+            color: #07111f;
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .heading h1 {
+            font-size: 28px;
+            letter-spacing: -0.8px;
+            margin-bottom: 7px;
+        }
+
+        .heading p {
+            color: #7d8797;
+            font-size: 13px;
+        }
+
+        /* BALANCE */
+
+        .balance-card {
+            background: #07111f;
+            color: white;
+            border-radius: 17px;
+            padding: 25px 28px;
+            margin-bottom: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-card::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+            right: -90px;
+            top: -130px;
+        }
+
+        .balance-label {
+            color: #9caabd;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        .balance {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .account-number {
+            margin-top: 14px;
+            color: #8997aa;
+            font-size: 11px;
+            letter-spacing: 1.3px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* FORM */
+
+        .form-card {
+            background: white;
+            border: 1px solid #e8ebf1;
+            border-radius: 17px;
+            padding: 30px;
+        }
+
+        .form-title {
+            font-size: 16px;
+            font-weight: 750;
+            margin-bottom: 5px;
+        }
+
+        .form-description {
+            color: #8993a3;
+            font-size: 12px;
+            margin-bottom: 27px;
+        }
+
+        .field {
+            margin-bottom: 21px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #4f5a6c;
+        }
+
+        input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #dfe4eb;
+            border-radius: 10px;
+            padding: 0 14px;
+            font-size: 14px;
+            outline: none;
+            background: #fbfcfe;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #07111f;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(7,17,31,0.06);
+        }
+
+        .field-error {
+            color: #c54848;
+            font-size: 11px;
+            margin-top: 7px;
+        }
+
+        .non-field-error {
+            background: #fff2f2;
+            border: 1px solid #ffd6d6;
+            color: #b63f3f;
+            padding: 12px 14px;
+            border-radius: 9px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            background: #07111f;
+            color: white;
+            font-size: 13px;
+            font-weight: 750;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            background: #101d30;
+            transform: translateY(-1px);
+        }
+
+        .secure-note {
+            text-align: center;
+            color: #929baa;
+            font-size: 10px;
+            margin-top: 17px;
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 72px;
+                padding: 22px 10px;
+            }
+
+            .brand {
+                text-align: center;
+                padding: 0;
+            }
+
+            .brand-name {
+                font-size: 16px;
+            }
+
+            .brand-subtitle,
+            .menu-title,
+            .nav-link span:last-child {
+                display: none;
+            }
+
+            .nav-link {
+                justify-content: center;
+            }
+
+            .main {
+                margin-left: 72px;
+                width: calc(100% - 72px);
+            }
+
+            .topbar {
+                padding: 0 22px;
+            }
+
+            .content {
+                padding: 28px 20px;
+            }
+
+            .user-info {
+                display: none;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .content {
+                padding: 25px 15px;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-name">SPC Bank</div>
+
+            <span class="brand-subtitle">
+                SOUTHERN PREMIUM CAPITAL BANK
+            </span>
+        </div>
+
+        <div class="menu-title">
+            Main Menu
+        </div>
+
+        <nav class="nav-menu">
+
+            <a href="{% url 'dashboard' %}" class="nav-link">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{% url 'transfer' %}" class="nav-link active">
+                <span class="nav-icon">↗</span>
+                <span>Transfer</span>
+            </a>
+
+            <a href="{% url 'transactions' %}" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Transactions</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">◉</span>
+                <span>My Account</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">☆</span>
+                <span>Beneficiaries</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Statements</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="{% url 'logout' %}" class="logout-link">
+                <span class="nav-icon">↪</span>
+                <span>Sign out</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <div class="page-title">
+                    Send Money
+                </div>
+
+                <div class="page-subtitle">
+                    Transfer funds securely to another SPC Bank account.
+                </div>
+            </div>
+
+            <div class="user-area">
+
+                <div class="user-info">
+
+                    <div class="user-name">
+                        {% if request.user.get_full_name %}
+                            {{ request.user.get_full_name }}
+                        {% else %}
+                            {{ request.user.email }}
+                        {% endif %}
+                    </div>
+
+                    <div class="user-role">
+                        Personal Banking
+                    </div>
+
+                </div>
+
+                <div class="avatar">
+
+                    {% if request.user.first_name %}
+                        {{ request.user.first_name|first|upper }}
+                    {% else %}
+                        {{ request.user.email|first|upper }}
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <a href="{% url 'dashboard' %}" class="back-link">
+                ← Back to dashboard
+            </a>
+
+
+            <div class="heading">
+
+                <h1>
+                    Send money
+                </h1>
+
+                <p>
+                    Make a secure transfer from your SPC Bank account.
+                </p>
+
+            </div>
+
+
+            <!-- BALANCE -->
+
+            <div class="balance-card">
+
+                <div class="balance-label">
+                    Available Balance
+                </div>
+
+                <div class="balance">
+                    ${{ account.balance|floatformat:2 }}
+                </div>
+
+                <div class="account-number">
+                    ACCOUNT • {{ account.account_number }}
+                </div>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <div class="form-card">
+
+                <div class="form-title">
+                    Transfer details
+                </div>
+
+                <div class="form-description">
+                    Enter the recipient's SPC Bank account information below.
+                </div>
+
+
+                {% if form.non_field_errors %}
+
+                    <div class="non-field-error">
+
+                        {{ form.non_field_errors }}
+
+                    </div>
+
+                {% endif %}
+
+
+                <form method="POST" action="{% url 'transfer' %}">
+
+                    {% csrf_token %}
+
+
+                    <!-- RECIPIENT -->
+
+                    <div class="field">
+
+                        <label for="{{ form.recipient_account.id_for_label }}">
+                            Recipient account number
+                        </label>
+
+                        {{ form.recipient_account }}
+
+                        {% for error in form.recipient_account.errors %}
+
+                            <div class="field-error">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- AMOUNT -->
+
+                    <div class="field">
+
+                        <label for="{{ form.amount.id_for_label }}">
+                            Amount
+                        </label>
+
+                        {{ form.amount }}
+
+                        {% for error in form.amount.errors %}
+
+                            <div class="field-error">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="field">
+
+                        <label for="{{ form.description.id_for_label }}">
+                            Description
+                        </label>
+
+                        {{ form.description }}
+
+                        {% for error in form.description.errors %}
+
+                            <div class="field-error">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <button type="submit" class="button">
+                        Send Money →
+                    </button>
+
+
+                    <div class="secure-note">
+                        🔒 Your transfer is processed securely.
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

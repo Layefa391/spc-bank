@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open an Account | Southern Premium Capital Bank</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* LEFT PANEL */
+        .left-panel {
+            width: 50%;
+            background: #071225;
+            color: white;
+            padding: 52px 64px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left-panel::before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+            top: -220px;
+            right: -180px;
+        }
+
+        .left-panel::after {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 50%;
+            bottom: -280px;
+            left: -200px;
+        }
+
+        .brand {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand span {
+            color: #2f6df6;
+        }
+
+        .left-content {
+            margin-top: 105px;
+            max-width: 560px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            color: #6fa0ff;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .left-content h1 {
+            font-size: 48px;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin: 0 0 24px;
+        }
+
+        .left-content h1 span {
+            color: #3975f6;
+        }
+
+        .left-content p {
+            color: #aeb9cc;
+            font-size: 17px;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0;
+        }
+
+        /* BENEFITS */
+        .benefits {
+            margin-top: 50px;
+            display: grid;
+            gap: 20px;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .benefit-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(47,109,246,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6fa0ff;
+            font-size: 19px;
+        }
+
+        .benefit-text strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .benefit-text span {
+            color: #8e9bb0;
+            font-size: 13px;
+        }
+
+        .secure-note {
+            margin-top: auto;
+            color: #8794a9;
+            font-size: 13px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* RIGHT PANEL */
+        .right-panel {
+            width: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 45px 70px;
+            overflow-y: auto;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .mobile-brand {
+            display: none;
+        }
+
+        .form-container h2 {
+            font-size: 36px;
+            letter-spacing: -1.5px;
+            margin: 0 0 10px;
+            color: #101827;
+        }
+
+        .subtitle {
+            color: #68758a;
+            font-size: 15px;
+            margin: 0 0 30px;
+            line-height: 1.5;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #182235;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d8dee8;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #2f6df6;
+            box-shadow: 0 0 0 3px rgba(47,109,246,0.10);
+        }
+
+        .help-text {
+            color: #7b8799;
+            font-size: 11px;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .errorlist {
+            list-style: none;
+            padding: 0;
+            margin: 6px 0 0;
+            color: #dc2626;
+            font-size: 12px;
+        }
+
+        .form-error {
+            background: #fff0f0;
+            border: 1px solid #ffd0d0;
+            color: #dc2626;
+            padding: 12px 14px;
+            border-radius: 9px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background: #101827;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 5px;
+        }
+
+        .submit-btn:hover {
+            background: #1c2a40;
+            transform: translateY(-1px);
+        }
+
+        .login-link {
+            text-align: center;
+            color: #68758a;
+            font-size: 14px;
+            margin-top: 22px;
+        }
+
+        .login-link a {
+            color: #2f6df6;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .security {
+            text-align: center;
+            color: #98a3b4;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .page {
+                display: block;
+            }
+
+            .left-panel {
+                width: 100%;
+                min-height: 320px;
+                padding: 30px;
+            }
+
+            .left-content {
+                margin-top: 55px;
+            }
+
+            .left-content h1 {
+                font-size: 36px;
+            }
+
+            .benefits {
+                display: none;
+            }
+
+            .secure-note {
+                margin-top: 35px;
+            }
+
+            .right-panel {
+                width: 100%;
+                padding: 40px 25px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .left-panel {
+                min-height: 280px;
+            }
+
+            .left-content h1 {
+                font-size: 32px;
+            }
+
+            .right-panel {
+                padding: 35px 20px;
+            }
+
+            .form-container h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- LEFT SIDE -->
+    <section class="left-panel">
+
+        <div class="brand">
+            Southern Premium Capital <span>Bank</span>
+        </div>
+
+        <div class="left-content">
+
+            <div class="eyebrow">
+                Premium banking
+            </div>
+
+            <h1>
+                Your money.<br>
+                Your future.<br>
+                <span>Your bank.</span>
+            </h1>
+
+            <p>
+                Open your Southern Premium Capital Bank account and
+                experience simple, secure and intelligent banking built
+                around you.
+            </p>
+
+            <div class="benefits">
+
+                <div class="benefit">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-text">
+                        <strong>Simple banking</strong>
+                        <span>Manage your money from one secure place.</span>
+                    </div>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit-icon">↗</div>
+                    <div class="benefit-text">
+                        <strong>Fast transfers</strong>
+                        <span>Move money securely whenever you need it.</span>
+                    </div>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit-icon">⌾</div>
+                    <div class="benefit-text">
+                        <strong>Secure by design</strong>
+                        <span>Your account is protected by modern security systems.</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="secure-note">
+            🔒 Secure banking environment · Southern Premium Capital Bank
+        </div>
+
+    </section>
+
+
+    <!-- RIGHT SIDE -->
+    <section class="right-panel">
+
+        <div class="form-container">
+
+            <div class="mobile-brand">
+                Southern Premium Capital <span>Bank</span>
+            </div>
+
+            <h2>Open your account</h2>
+
+            <p class="subtitle">
+                Create your Southern Premium Capital Bank account
+                in just a few minutes.
+            </p>
+
+            {% if form.non_field_errors %}
+                <div class="form-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-grid">
+
+                    <!-- FIRST NAME -->
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}">
+                            First name
+                        </label>
+
+                        {{ form.first_name }}
+
+                        {% for error in form.first_name.errors %}
+                            <ul class="errorlist">
+                                <li>{{ error }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+
+
+                    <!-- LAST NAME -->
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}">
+                            Last name
+                        </label>
+
+                        {{ form.last_name }}
+
+                        {% for error in form.last_name.errors %}
+                            <ul class="errorlist">
+                                <li>{{ error }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="form-group full">
+                        <label for="{{ form.email.id_for_label }}">
+                            Email address
+                        </label>
+
+                        {{ form.email }}
+
+                        {% for error in form.email.errors %}
+                            <ul class="errorlist">
+                                <li>{{ error }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="form-group full">
+                        <label for="{{ form.phone_number.id_for_label }}">
+                            Phone number
+                        </label>
+
+                        {{ form.phone_number }}
+
+                        {% for error in form.phone_number.errors %}
+                            <ul class="errorlist">
+                                <li>{{ error }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+
+
+                    <!-- PASSWORD -->
+                    <div class="form-group">
+                        <label for="{{ form.password1.id_for_label }}">
+                            Password
+                        </label>
+
+                        {{ form.password1 }}
+
+                        {% for error in form.password1.errors %}
+                            <ul class="errorlist">
+                                <li>{{ error }}</li>
+                            </ul>
+                        {% endfor %}
+
+                        {% if form.password1.help_text %}
+                            <div class="help-text">
+                                {{ form.password1.help_text|safe }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+                    <div class="form-group">
+                        <label for="{{ form.password2.id_for_label }}">
+                            Confirm password
+                        </label>
+
+                        {{ form.password2 }}
+
+                        {% for error in form.password2.errors %}
+                            <ul class="errorlist">
+                                <li>{{ error }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Create my account
+                </button>
+
+            </form>
+
+            <div class="login-link">
+                Already have an account?
+                <a href="{% url 'login' %}">Sign in</a>
+            </div>
+
+            <div class="security">
+                🔒 Your information is protected by SPC Bank security systems.
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+</body>
+</html>
