@@ -4,6 +4,10 @@ from django.conf import settings
 from django.db import models
 
 
+def generate_transaction_reference():
+    return uuid.uuid4().hex[:32]
+
+
 class Transaction(models.Model):
 
     class TransactionType(models.TextChoices):
@@ -19,34 +23,35 @@ class Transaction(models.Model):
     reference = models.CharField(
         max_length=50,
         unique=True,
-        db_index=True
+        db_index=True,
+        default=generate_transaction_reference,
     )
 
     account = models.ForeignKey(
         "banking.BankAccount",
         on_delete=models.PROTECT,
-        related_name="transactions"
+        related_name="transactions",
     )
 
     transaction_type = models.CharField(
         max_length=20,
-        choices=TransactionType.choices
+        choices=TransactionType.choices,
     )
 
     amount = models.DecimalField(
         max_digits=15,
-        decimal_places=2
+        decimal_places=2,
     )
 
     description = models.CharField(
         max_length=255,
-        blank=True
+        blank=True,
     )
 
     status = models.CharField(
         max_length=20,
         choices=TransactionStatus.choices,
-        default=TransactionStatus.COMPLETED
+        default=TransactionStatus.COMPLETED,
     )
 
     created_by = models.ForeignKey(
@@ -54,11 +59,10 @@ class Transaction(models.Model):
         on_delete=models.PROTECT,
         null=True,
         blank=True,
-        related_name="created_transactions"
+        related_name="created_transactions",
     )
 
-    created_at = models.DateTimeField(auto_now_add=True)
-
+    created_at = models.DateTimeField()
     def __str__(self):
         return f"{self.reference} - {self.amount}"
 
