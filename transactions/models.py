@@ -62,8 +62,7 @@ class Transaction(models.Model):
         related_name="created_transactions",
     )
 
-    created_at = models.DateTimeField()
-
+    created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"{self.reference} - {self.amount}"
 

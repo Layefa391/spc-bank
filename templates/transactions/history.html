@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,10 +101,18 @@
             justify-content: space-between;
             padding: 22px 28px;
             border-bottom: 1px solid #edf0f4;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: background 0.18s ease;
         }
 
         .transaction:last-child {
             border-bottom: 0;
+        }
+
+        .transaction:hover {
+            background: #f8fafc;
         }
 
         .left {
@@ -122,6 +131,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 800;
+            flex-shrink: 0;
         }
 
         .description {
@@ -183,15 +193,34 @@
         </div>
 
         <nav class="nav">
-            <a href="{% url 'dashboard' %}">⌂ &nbsp; Dashboard</a>
-            <a href="#">◉ &nbsp; My Account</a>
-            <a href="{% url 'transfer' %}">↗ &nbsp; Transfer</a>
+            <a href="{% url 'dashboard' %}">
+                ⌂ &nbsp; Dashboard
+            </a>
+
+            <a href="#">
+                ◉ &nbsp; My Account
+            </a>
+
+            <a href="{% url 'transfer' %}">
+                ↗ &nbsp; Transfer
+            </a>
+
             <a href="{% url 'transactions' %}" class="active">
                 ▤ &nbsp; Transactions
             </a>
-            <a href="#">☆ &nbsp; Beneficiaries</a>
-            <a href="#">□ &nbsp; Statements</a>
-            <a href="#">⚙ &nbsp; Settings</a>
+
+            <a href="#">
+                ☆ &nbsp; Beneficiaries
+            </a>
+
+            <a href="#">
+                □ &nbsp; Statements
+            </a>
+
+            <a href="#">
+                ⚙ &nbsp; Settings
+            </a>
+
             <a href="{% url 'logout' %}" style="color:#ff4b4b;">
                 ↪ &nbsp; Sign out
             </a>
@@ -220,11 +249,15 @@
 
                     {% for transaction in transactions %}
 
-                        <div class="transaction">
+                        <a
+                            href="{% url 'transaction_detail' transaction.reference %}"
+                            class="transaction"
+                        >
 
                             <div class="left">
 
                                 <div class="icon">
+
                                     {% if transaction.transaction_type == "DEPOSIT" %}
                                         +
                                     {% elif transaction.transaction_type == "WITHDRAWAL" %}
@@ -232,11 +265,19 @@
                                     {% else %}
                                         ↗
                                     {% endif %}
+
                                 </div>
 
                                 <div>
+
                                     <div class="description">
-                                        {{ transaction.description|default:transaction.get_transaction_type_display }}
+
+                                        {% if transaction.description %}
+                                            {{ transaction.description }}
+                                        {% else %}
+                                            {{ transaction.get_transaction_type_display }}
+                                        {% endif %}
+
                                     </div>
 
                                     <div class="reference">
@@ -244,9 +285,11 @@
                                         ·
                                         {{ transaction.status|title }}
                                     </div>
+
                                 </div>
 
                             </div>
+
 
                             <div class="right">
 
@@ -260,17 +303,20 @@
 
                             </div>
 
-                        </div>
+                        </a>
 
                     {% endfor %}
 
                 {% else %}
 
                     <div class="empty">
+
                         <h3>No transactions yet</h3>
+
                         <p>
                             Your banking activity will appear here.
                         </p>
+
                     </div>
 
                 {% endif %}
@@ -285,3 +331,4 @@
 
 </body>
 </html>
+```

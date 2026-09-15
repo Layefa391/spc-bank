@@ -165,3 +165,28 @@ def transactions_view(request):
             "transactions": transactions,
         },
     )
+@login_required
+def transaction_detail_view(request, reference):
+    account = request.user.bank_accounts.first()
+
+    transaction = (
+        Transaction.objects
+        .filter(
+            account=account,
+            reference=reference,
+        )
+        .select_related("account")
+        .first()
+    )
+
+    if transaction is None:
+        return redirect("transactions")
+
+    return render(
+        request,
+        "transactions/detail.html",
+        {
+            "account": account,
+            "transaction": transaction,
+        },
+    )
